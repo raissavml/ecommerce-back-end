@@ -9,7 +9,7 @@ const getAllUsers = (req,res) => {
 }
 
 const postUser = (req,res) => {
-
+    
 }
 
 const updateUserByID = (req,res) => {
