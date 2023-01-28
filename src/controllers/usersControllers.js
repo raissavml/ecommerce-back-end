@@ -1,4 +1,4 @@
-
+const UserSchema = require("../models/userSchema");
 
 const getUserbyId = (req,res) => {
 
