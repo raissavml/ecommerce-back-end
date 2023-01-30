@@ -7,7 +7,7 @@ const postUser = async (req,res) => {
         const saveUser = await newUser.save()
         res.status(201).json({msg: saveUser})
     }catch(e) {
-        res.status(400).json({msg: e.message})
+       return res.status(400).json({msg: e.message})
     }
 }
 
@@ -16,16 +16,20 @@ const getUserbyId = (req,res) => {
 }
 
 const getAllUsers = async (req,res) => {
-    const users = await UserSchema.find()
-    return res.status(200).json(users)
+   try{
+        const users = await UserSchema.find()
+        return res.status(200).json(users)
+   }catch(e) {
+        return res.status(404).json({msg: e.message})
+   }
 }
 
 
-const updateUserByID = (req,res) => {
+const updateUserByID = async (req,res) => {
 
 }
 
-const deleteUserById = (req,res) => {
+const deleteUserById = async (req,res) => {
 
 }
 
