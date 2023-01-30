@@ -1,6 +1,4 @@
-const { default: mongoose } = require('mongoose');
-
-const mongoose = require ('mongoose');
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId,
@@ -28,27 +26,27 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    streetAdress: {
+    streetAddress: {
         type: String,
         required: true,
     },
-    numberAdress: {
+    numberAddress: {
         type: String,
         required: true,
     },
-    neighborhoodAdress: {
+    neighborhoodAddress: {
         type: String,
         required: true,
     },
-    cityAdress: {
+    cityAddress: {
         type: String,
         required: true,
     },
-    stateAdress: {
+    stateAddress: {
         type: String,
         required: true,
     },
-    cepAdrees: {
+    cepAddrees: {
         type: String,
         required: true,
     }
@@ -56,4 +54,4 @@ const userSchema = new mongoose.Schema({
 { timestamps: true }
 );
 
-module.exports = mongoose.model('user', userSchema);
+export default mongoose.model('user', userSchema)
