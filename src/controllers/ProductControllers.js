@@ -1,1 +1,0 @@
-const ProductSchema = require("../models/productSchema");

@@ -1,6 +1,5 @@
 import UserSchema from '../models/usersSchema.js'
 
-
 const postUser = async (req,res) => {
     try{
         const newUser = new UserSchema(req.body)
@@ -11,8 +10,15 @@ const postUser = async (req,res) => {
     }
 }
 
-const getUserbyId = (req,res) => {
-
+const getUserbyId = async (req,res) => {
+    try {
+        const { id } = req.params
+        const userById = await UserSchema.findById({_id: id})
+        res.status(200)
+        return res.json(userById)
+    } catch(e) {
+        res.status(400).json({msg: e.message})
+    }
 }
 
 const getAllUsers = async (req,res) => {
@@ -27,7 +33,7 @@ const getAllUsers = async (req,res) => {
 
 const updateUserByID = async (req,res) => {
 
-}
+}  
 
 const deleteUserById = async (req,res) => {
 
