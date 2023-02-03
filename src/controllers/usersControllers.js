@@ -1,4 +1,6 @@
 import UserSchema from '../models/usersSchema.js'
+import bcrypt from "bcrypt"
+import jwt from 'jsonwebtoken'
 
 const postUser = async (req,res) => {
     try{
@@ -52,11 +54,41 @@ const deleteUserById = async (req,res) => {
     }
 }
 
+const login = async (req,res) => {
+   const { email, password, id } = req.body
+
+    const emailUser = UserSchema.find({email})
+    const passwordUser = UserSchema.find({password})
+
+   if(!emailUser) {
+        return res.status(400).send({
+            message: 'Email or password is invidalid'
+        })
+   }
+
+   const passwordIsValid = bcrypt.compare(password, passwordUser)
+
+   if(!passwordIsValid){
+    return res.status(400).send({
+        message: "email or password is invalid"
+    })
+   }
+   const token = jwt.sign({_id: id}, process.env.SECRET, {
+    expiresIn: 54443332
+   })
+   res.send({token})
+}
+
+const authRoute = async(req,res) => {
+    res.json({msg: "Rota autenticada"})
+}
 
 export default {
     postUser,
     getUserbyId,
     getAllUsers,
     updateUserByID,
-    deleteUserById
+    deleteUserById,
+    login,
+    authRoute
 }

@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    cepAddrees: {
+    cepAddress: {
         type: String,
         required: true,
     }
