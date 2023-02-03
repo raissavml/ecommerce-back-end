@@ -1,9 +1,11 @@
 import UserSchema from '../models/usersSchema.js'
 import bcrypt from "bcrypt"
-import jwt from 'jsonwebtoken'
 
 const postUser = async (req,res) => {
     try{
+        const user = req.body
+        const hash = bcrypt.hashSync(user.password, 10)
+        user.password = hash
         const newUser = new UserSchema(req.body)
         const saveUser = await newUser.save()
         res.status(201).json({msg: saveUser})
@@ -32,13 +34,13 @@ const getAllUsers = async (req,res) => {
    }
 }
 
-
 const updateUserByID = async (req,res) => {
     try{
-        const updateUser = await UserSchema.findByIdAndUpdate (req.params.id)
-        return res.status (200).json({
-            updateUser,
-        })
+        const { id } = req.params
+        const updateUser = await UserSchema.findByIdAndUpdate({_id: id}, req.body)
+        return res.status(200).json({msg: "usuario atualizado com sucesso!", data: {
+            updateUser
+        }})
     }catch(e) {
        return res.status(400).json({msg: e.message})
     }
@@ -54,34 +56,7 @@ const deleteUserById = async (req,res) => {
     }
 }
 
-const login = async (req,res) => {
-   const { email, password, id } = req.body
 
-    const emailUser = UserSchema.find({email})
-    const passwordUser = UserSchema.find({password})
-
-   if(!emailUser) {
-        return res.status(400).send({
-            message: 'Email or password is invidalid'
-        })
-   }
-
-   const passwordIsValid = bcrypt.compare(password, passwordUser)
-
-   if(!passwordIsValid){
-    return res.status(400).send({
-        message: "email or password is invalid"
-    })
-   }
-   const token = jwt.sign({_id: id}, process.env.SECRET, {
-    expiresIn: 54443332
-   })
-   res.send({token})
-}
-
-const authRoute = async(req,res) => {
-    res.json({msg: "Rota autenticada"})
-}
 
 export default {
     postUser,
@@ -89,6 +64,4 @@ export default {
     getAllUsers,
     updateUserByID,
     deleteUserById,
-    login,
-    authRoute
 }
