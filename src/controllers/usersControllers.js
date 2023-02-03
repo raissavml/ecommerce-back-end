@@ -32,12 +32,26 @@ const getAllUsers = async (req,res) => {
 
 
 const updateUserByID = async (req,res) => {
-
-}  
+    try{
+        const updateUser = await UserSchema.findByIdAndUpdate (req.params.id)
+        return res.status (200).json({
+            updateUser,
+        })
+    }catch(e) {
+       return res.status(400).json({msg: e.message})
+    }
+}
 
 const deleteUserById = async (req,res) => {
+    try{
+        await UserSchema.findByIdAndDelete(req.params.id)
 
+        res.status(200).json({msg: `User deleted`})
+    }catch(e) {
+       return res.status(400).json({msg: e.message})
+    }
 }
+
 
 export default {
     postUser,
