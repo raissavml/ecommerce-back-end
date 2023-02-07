@@ -16,7 +16,7 @@ const login = async (req,res) => {
                     return res.status(401).json({msg: "senha invalida!"})
                 } else {
                     const token = jwt.sign({email: user.email}, process.env.SECRET, { expiresIn: '1h' });
-                    res.json({msg: "autenticado", token});
+                    res.json({msg: "Token gerado", token});
                 }
             })
         })
@@ -26,7 +26,7 @@ const login = async (req,res) => {
 }
 
 const authRoute = async(req,res) => {
-    res.status(200).json({msg: "Rota autenticada"})
+    res.status(200).json({msg: "Usuário Autenticado"})
 }
 
 export default  {

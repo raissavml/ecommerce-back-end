@@ -37,9 +37,10 @@ const getAllUsers = async (req,res) => {
 const updateUserByID = async (req,res) => {
     try{
         const { id } = req.params
-        const updateUser = await UserSchema.findByIdAndUpdate({_id: id}, req.body)
-        return res.status(200).json({msg: "usuario atualizado com sucesso!", data: {
-            updateUser
+        await UserSchema.findByIdAndUpdate({_id: id}, req.body)
+        const users = await UserSchema.find()
+        return res.status(200).json({msg: "usuário atualizado com sucesso!", data: {
+            users
         }})
     }catch(e) {
        return res.status(404).json({msg: e.message})
@@ -50,7 +51,7 @@ const deleteUserById = async (req,res) => {
     try{
         await UserSchema.findByIdAndDelete(req.params.id)
 
-        res.status(200).json({msg: `User deleted`})
+        res.status(200).json({msg: `Usuário Deletado!`})
     }catch(e) {
        return res.status(404).json({msg: e.message})
     }

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 const JwtMiddleware = (req,res,next) => {
    try{
     const SECRET = process.env.SECRET
-    
+
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token,SECRET);
     req.userData = decoded;
@@ -11,7 +11,7 @@ const JwtMiddleware = (req,res,next) => {
 
    } catch(err) {
     return res.status(401).json({
-        msg: 'Auth failed'
+        msg: 'Erro na Autenticação'
     })
    }
 }
