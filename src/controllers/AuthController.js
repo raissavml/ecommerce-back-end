@@ -26,7 +26,7 @@ const login = async (req,res) => {
 }
 
 const authRoute = async(req,res) => {
-    res.json({msg: "Rota autenticada"})
+    res.status(200).json({msg: "Rota autenticada"})
 }
 
 export default  {

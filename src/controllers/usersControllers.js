@@ -21,7 +21,7 @@ const getUserbyId = async (req,res) => {
         res.status(200)
         return res.json(userById)
     } catch(e) {
-        res.status(400).json({msg: e.message})
+        res.status(404).json({msg: e.message})
     }
 }
 
@@ -42,7 +42,7 @@ const updateUserByID = async (req,res) => {
             updateUser
         }})
     }catch(e) {
-       return res.status(400).json({msg: e.message})
+       return res.status(404).json({msg: e.message})
     }
 }
 
@@ -52,7 +52,7 @@ const deleteUserById = async (req,res) => {
 
         res.status(200).json({msg: `User deleted`})
     }catch(e) {
-       return res.status(400).json({msg: e.message})
+       return res.status(404).json({msg: e.message})
     }
 }
 
