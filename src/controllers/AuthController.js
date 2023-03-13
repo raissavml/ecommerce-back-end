@@ -15,7 +15,7 @@ const login = async (req,res) => {
                 if(!auth) {
                     return res.status(401).json({msg: "senha invalida!"})
                 } else {
-                    const token = jwt.sign({email: user.email}, process.env.SECRET, { expiresIn: '1h' });
+                    const token = jwt.sign({email: user.email}, process.env.SECRET, { expiresIn: '6h' });
                     res.json({msg: "Token gerado", token});
                 }
             })
